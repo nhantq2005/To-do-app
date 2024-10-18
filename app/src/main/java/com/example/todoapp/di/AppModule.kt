@@ -5,6 +5,10 @@ import androidx.room.Room
 import com.example.todoapp.feature_todo.data.data_source.TaskDatabase
 import com.example.todoapp.feature_todo.data.repository.TaskRepositoryImpl
 import com.example.todoapp.feature_todo.domain.repository.TaskRepository
+import com.example.todoapp.feature_todo.domain.use_cases.AddTask
+import com.example.todoapp.feature_todo.domain.use_cases.DeleteTask
+import com.example.todoapp.feature_todo.domain.use_cases.GetTasks
+import com.example.todoapp.feature_todo.domain.use_cases.TaskUseCases
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +36,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTaskUseCases(repository: TaskRepository):TaskUseCase{
-
+    fun provideTaskUseCases(repository: TaskRepository):TaskUseCases{
+        return TaskUseCases(
+            getTasks = GetTasks(repository),
+            deleteTask = DeleteTask(repository),
+            addTask = AddTask(repository)
+        )
     }
 }
