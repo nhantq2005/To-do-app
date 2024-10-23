@@ -1,5 +1,6 @@
 package com.example.todoapp.feature_todo.data.data_source
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -7,6 +8,7 @@ import androidx.room.Query
 import com.example.todoapp.feature_todo.domain.model.Task
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface TaskDao {
     @Query("SELECT * FROM task_table")
     fun getTask(): Flow<List<Task>>
