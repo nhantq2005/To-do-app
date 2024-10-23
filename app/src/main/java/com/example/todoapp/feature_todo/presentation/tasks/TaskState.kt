@@ -6,5 +6,6 @@ import com.example.todoapp.feature_todo.domain.util.TaskOrder
 
 data class TaskState(
     val tasks:List<Task> = emptyList(),
-    val taskOrder: TaskOrder = TaskOrder.Date(OrderType.Ascending)
+    val taskOrder: TaskOrder = TaskOrder.Date(OrderType.Ascending),
+    val isOrderSectionVisible:Boolean = false
 )

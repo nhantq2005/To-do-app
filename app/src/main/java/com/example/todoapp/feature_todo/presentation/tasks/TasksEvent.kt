@@ -9,4 +9,6 @@ sealed class TasksEvent {
     data class DeleteTask(val task: Task):TasksEvent()
 
     object RestoreTask:TasksEvent()
+
+    object ToggleOrderSection:TasksEvent()
 }

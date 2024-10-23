@@ -47,7 +47,7 @@ import com.example.todoapp.ui.theme.ToDoAppTheme
 fun TaskItem(
     task: Task,
     modifier:Modifier=Modifier,
-    onImportantClick:()->Unit
+    onDeleteClick:()->Unit
 ){
 
     var isCheck by rememberSaveable {
@@ -77,21 +77,24 @@ fun TaskItem(
                     }
                 )
                 Text(
-                    text = task.title,
+                    text = "task.title",
                     style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
             }
         }
-        CustomImprtantButton(
-            isCheck = isImportant,
-            onCheckedChange = {
-                              task.isImportant = !task.isImportant
-            },
+        IconButton(
+            onClick = onDeleteClick,
             modifier = Modifier.align(Alignment.CenterEnd)
-        )
+            ) {
+            Icon(
+                Icons.Default.Delete,
+                contentDescription = "Delete Task Button"
+            )
+        }
     }
 }
 
@@ -99,6 +102,8 @@ fun TaskItem(
 //@Composable
 //fun GreetingPreview() {
 //    ToDoAppTheme {
-//        TaskItem()
+//        TaskItem(){
+//
+//        }
 //    }
 //}
