@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "task_table")
 data class Task (
     @PrimaryKey(autoGenerate = true)
-    val id:Int = 0,
+    val id:Int? = 0,
     val title:String,
     val detail:String,
     val timeStamp:Long,
-    var isImportant:Boolean,
-    var isDone:Boolean
+    val isImportant:Boolean,
+    val isDone:Boolean
 )
 
 class InvalidTaskException(message:String):Exception(message){

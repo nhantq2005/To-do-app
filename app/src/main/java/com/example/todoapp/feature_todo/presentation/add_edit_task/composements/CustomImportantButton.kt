@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.todoapp.ui.theme.ToDoAppTheme
 
 @Composable
-fun CustomImprtantButton(
+fun CustomImportantButton(
     isCheck:Boolean=false,
     onCheckedChange:()->Unit,
     modifier:Modifier=Modifier

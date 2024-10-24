@@ -47,15 +47,9 @@ import com.example.todoapp.ui.theme.ToDoAppTheme
 fun TaskItem(
     task: Task,
     modifier:Modifier=Modifier,
-    onDeleteClick:()->Unit
+    onDeleteClick:()->Unit,
+    onDoneClick:()->Unit
 ){
-
-    var isCheck by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var isImportant by rememberSaveable {
-        mutableStateOf(false)
-    }
 
     Box(
         modifier = Modifier
@@ -71,10 +65,8 @@ fun TaskItem(
             Row(modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically) {
                 CustomCheckButton(
-                    isCheck = isCheck,
-                    onCheckedChange = {
-                        isCheck = !isCheck
-                    }
+                    isCheck = task.isDone,
+                    onCheckedChange = onDoneClick
                 )
                 Text(
                     text = "task.title",

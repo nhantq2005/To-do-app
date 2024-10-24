@@ -8,6 +8,7 @@ import com.example.todoapp.feature_todo.domain.model.Task
 import com.example.todoapp.feature_todo.domain.use_cases.TaskUseCases
 import com.example.todoapp.feature_todo.domain.util.OrderType
 import com.example.todoapp.feature_todo.domain.util.TaskOrder
+import com.example.todoapp.feature_todo.presentation.add_edit_task.AddEditTaskState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
@@ -23,6 +24,9 @@ class TaskViewModel @Inject constructor(
 
     private val _state = mutableStateOf(TaskState())
     val state:State<TaskState> = _state
+
+    private val _isDoneTask = mutableStateOf(AddEditTaskState())
+    val isDoneTask:State<AddEditTaskState> = _isDoneTask
 
     private var recentTask:Task? = null
 
@@ -55,6 +59,12 @@ class TaskViewModel @Inject constructor(
             TasksEvent.ToggleOrderSection -> {
                 _state.value = state.value.copy(
                     isOrderSectionVisible = !state.value.isOrderSectionVisible
+                )
+            }
+
+            TasksEvent.CheckTask -> {
+                _isDoneTask.value = isDoneTask.value.copy(
+                    isImportantTask = !isDoneTask.value.isDoneTask
                 )
             }
         }

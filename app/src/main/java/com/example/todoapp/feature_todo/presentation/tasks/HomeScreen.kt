@@ -164,6 +164,9 @@ fun HomeScreen(
                                     viewModel.onEvent(TasksEvent.RestoreTask)
                                 }
                             }
+                        },
+                        onDoneClick = {
+                            viewModel.onEvent(TasksEvent.CheckTask)
                         }
                     )
                     Spacer(modifier = Modifier.height(15.dp))

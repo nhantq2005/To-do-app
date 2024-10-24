@@ -7,6 +7,7 @@ import com.example.todoapp.feature_todo.data.repository.TaskRepositoryImpl
 import com.example.todoapp.feature_todo.domain.repository.TaskRepository
 import com.example.todoapp.feature_todo.domain.use_cases.AddTask
 import com.example.todoapp.feature_todo.domain.use_cases.DeleteTask
+import com.example.todoapp.feature_todo.domain.use_cases.GetTask
 import com.example.todoapp.feature_todo.domain.use_cases.GetTasks
 import com.example.todoapp.feature_todo.domain.use_cases.TaskUseCases
 import dagger.Module
@@ -40,7 +41,8 @@ object AppModule {
         return TaskUseCases(
             getTasks = GetTasks(repository),
             deleteTask = DeleteTask(repository),
-            addTask = AddTask(repository)
+            addTask = AddTask(repository),
+            getTask = GetTask(repository)
         )
     }
 }

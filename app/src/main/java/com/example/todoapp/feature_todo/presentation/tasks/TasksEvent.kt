@@ -11,4 +11,6 @@ sealed class TasksEvent {
     object RestoreTask:TasksEvent()
 
     object ToggleOrderSection:TasksEvent()
+
+    object CheckTask:TasksEvent()
 }
