@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.todoapp.feature_todo.presentation.add_edit_task.AddEditTaskScreen
 import com.example.todoapp.feature_todo.presentation.tasks.HomeScreen
 import com.example.todoapp.ui.theme.ToDoAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ToDoAppTheme {
-//                HomeScreen()
+                HomeScreen()
             }
         }
     }

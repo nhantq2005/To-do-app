@@ -6,6 +6,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -60,11 +61,12 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController,
+//    navController: NavController,
     viewModel: TaskViewModel = hiltViewModel()
 ){
     val state = viewModel.state.value
-//    val scaffoldState = rememberSca
+    val doneState = viewModel.isDoneTask.value
+
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -143,9 +145,9 @@ fun HomeScreen(
             }
             Spacer(modifier = Modifier.height(15.dp))
             LazyColumn(modifier = Modifier.fillMaxSize()){
-                items(state.tasks){task ->
+                items(state.tasks){atask ->
                     TaskItem(
-                        task = task,
+                        task = atask,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
@@ -153,7 +155,7 @@ fun HomeScreen(
                             },
                         onDeleteClick = {
                             //Delete Task
-                            viewModel.onEvent(TasksEvent.DeleteTask(task))
+                            viewModel.onEvent(TasksEvent.DeleteTask(atask))
                             scope.launch {
                                 //Show snack bar to restore task
                                 val result = snackbarHostState.showSnackbar(
@@ -165,8 +167,10 @@ fun HomeScreen(
                                 }
                             }
                         },
+                        isDone = atask.isDone,
                         onDoneClick = {
-                            viewModel.onEvent(TasksEvent.CheckTask)
+                            viewModel.onEvent(TasksEvent.CheckTask(doneState.isDoneTask))
+//                            viewModel.onEvent(TasksEvent.DeleteTask(task))
                         }
                     )
                     Spacer(modifier = Modifier.height(15.dp))

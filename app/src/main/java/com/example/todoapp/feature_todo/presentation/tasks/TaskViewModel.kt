@@ -62,9 +62,9 @@ class TaskViewModel @Inject constructor(
                 )
             }
 
-            TasksEvent.CheckTask -> {
+            is TasksEvent.CheckTask -> {
                 _isDoneTask.value = isDoneTask.value.copy(
-                    isImportantTask = !isDoneTask.value.isDoneTask
+                    isDoneTask = !isDoneTask.value.isDoneTask
                 )
             }
         }

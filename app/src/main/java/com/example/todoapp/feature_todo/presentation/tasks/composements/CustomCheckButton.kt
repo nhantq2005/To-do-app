@@ -16,15 +16,10 @@ import com.example.todoapp.ui.theme.ToDoAppTheme
 
 @Composable
 fun CustomCheckButton(
-    isCheck:Boolean = false,
+    isDone:Boolean = false,
     onCheckedChange:()->Unit
 ){
-    var isDone by rememberSaveable {
-        mutableStateOf(false)
-    }
-    IconButton(onClick = {
-        isDone = !isDone
-    }) {
+    IconButton(onClick = onCheckedChange) {
         if(isDone){
             Icon(
                 Icons.Default.CheckCircle,

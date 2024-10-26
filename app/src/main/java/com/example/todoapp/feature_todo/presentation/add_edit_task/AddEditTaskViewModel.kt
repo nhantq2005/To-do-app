@@ -30,8 +30,8 @@ class AddEditTaskViewModel @Inject constructor(
     ))
     val taskDetail:State<TaskTextFieldState> = _taskDetail
 
-    private val _isTaskImportant = mutableStateOf(AddEditTaskState())
-    val isTaskImportant:State<AddEditTaskState> = _isTaskImportant
+    private val _state = mutableStateOf(AddEditTaskState())
+    val state:State<AddEditTaskState> = _state
 
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
@@ -52,7 +52,6 @@ class AddEditTaskViewModel @Inject constructor(
                             text = task.detail,
                             isHintVisible = false
                         )
-                        _isTaskImportant.value = isTaskImportant.value
                     }
                 }
             }
@@ -88,9 +87,9 @@ class AddEditTaskViewModel @Inject constructor(
                             Task(
                                 title = taskTitle.value.text,
                                 detail = taskDetail.value.text,
-                                isImportant = isTaskImportant.value.isImportantTask,
+                                isImportant = state.value.isImportant,
                                 timeStamp = System.currentTimeMillis(),
-                                isDone = false,
+                                isDone = true,
                                 id = currentTaskId
                             )
                         )
@@ -105,9 +104,9 @@ class AddEditTaskViewModel @Inject constructor(
                 }
             }
 
-            AddEditTaskEvent.ImportantCheck -> {
-                _isTaskImportant.value = isTaskImportant.value.copy(
-                    isImportantTask = !isTaskImportant.value.isImportantTask
+            is AddEditTaskEvent.ImportantCheck -> {
+                _state.value = state.value.copy(
+                    isImportant = !state.value.isImportant
                 )
             }
         }

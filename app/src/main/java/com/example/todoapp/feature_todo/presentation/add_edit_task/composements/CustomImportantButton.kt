@@ -17,19 +17,14 @@ import com.example.todoapp.ui.theme.ToDoAppTheme
 
 @Composable
 fun CustomImportantButton(
-    isCheck:Boolean=false,
+    isCheck:Boolean,
     onCheckedChange:()->Unit,
     modifier:Modifier=Modifier
 ){
-    var isChecked by rememberSaveable {
-        mutableStateOf(false)
-    }
-    IconButton(onClick = {
-        isChecked = !isChecked
-    },
+    IconButton(onClick = onCheckedChange,
         modifier = modifier
         ) {
-        if(isChecked){
+        if(isCheck){
             Icon(
                 Icons.Default.Bookmark,
                 tint = Color(239, 192, 0),

@@ -48,6 +48,7 @@ fun TaskItem(
     task: Task,
     modifier:Modifier=Modifier,
     onDeleteClick:()->Unit,
+    isDone:Boolean,
     onDoneClick:()->Unit
 ){
 
@@ -65,11 +66,11 @@ fun TaskItem(
             Row(modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically) {
                 CustomCheckButton(
-                    isCheck = task.isDone,
+                    isDone = isDone,
                     onCheckedChange = onDoneClick
                 )
                 Text(
-                    text = "task.title",
+                    text = task.title,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
