@@ -10,6 +10,7 @@ import com.example.todoapp.feature_todo.domain.use_cases.DeleteTask
 import com.example.todoapp.feature_todo.domain.use_cases.GetTask
 import com.example.todoapp.feature_todo.domain.use_cases.GetTasks
 import com.example.todoapp.feature_todo.domain.use_cases.TaskUseCases
+import com.example.todoapp.feature_todo.domain.use_cases.UpdateTask
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,7 +43,8 @@ object AppModule {
             getTasks = GetTasks(repository),
             deleteTask = DeleteTask(repository),
             addTask = AddTask(repository),
-            getTask = GetTask(repository)
+            getTask = GetTask(repository),
+            updateTask = UpdateTask(repository)
         )
     }
 }

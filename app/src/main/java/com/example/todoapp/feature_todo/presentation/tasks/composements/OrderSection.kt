@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import com.example.todoapp.feature_todo.domain.util.OrderType
 import com.example.todoapp.feature_todo.domain.util.TaskOrder
 
@@ -23,7 +24,8 @@ fun OrderSection(
     taskOrder: TaskOrder = TaskOrder.Date(OrderType.Ascending),
     onOrderChange:(TaskOrder)->Unit
 ){
-    Card(modifier = Modifier.fillMaxWidth(),
+    Card(modifier = Modifier.fillMaxWidth()
+        .zIndex(2f),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp

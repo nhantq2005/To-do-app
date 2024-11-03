@@ -11,7 +11,7 @@ data class Task (
     val detail:String,
     val timeStamp:Long,
     val isImportant:Boolean,
-    val isDone:Boolean
+    var isDone:Boolean
 )
 
 class InvalidTaskException(message:String):Exception(message){

@@ -56,6 +56,7 @@ import com.example.todoapp.feature_todo.presentation.tasks.composements.DropDown
 import com.example.todoapp.feature_todo.presentation.tasks.composements.OrderSection
 import com.example.todoapp.feature_todo.presentation.tasks.composements.TaskItem
 import com.example.todoapp.ui.theme.ToDoAppTheme
+
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +66,6 @@ fun HomeScreen(
     viewModel: TaskViewModel = hiltViewModel()
 ){
     val state = viewModel.state.value
-    val doneState = viewModel.isDoneTask.value
 
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
@@ -96,7 +96,9 @@ fun HomeScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = {  }) {
+            FloatingActionButton(onClick = {
+
+            }) {
                 Icon(Icons.Default.Add, contentDescription = "Add task button")
             }
         },
@@ -169,8 +171,7 @@ fun HomeScreen(
                         },
                         isDone = atask.isDone,
                         onDoneClick = {
-                            viewModel.onEvent(TasksEvent.CheckTask(doneState.isDoneTask))
-//                            viewModel.onEvent(TasksEvent.DeleteTask(task))
+                            viewModel.onEvent(TasksEvent.CompletedTask(atask))
                         }
                     )
                     Spacer(modifier = Modifier.height(15.dp))
@@ -180,10 +181,10 @@ fun HomeScreen(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    ToDoAppTheme {
-//        HomeScreen()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    ToDoAppTheme {
+        HomeScreen()
+    }
+}

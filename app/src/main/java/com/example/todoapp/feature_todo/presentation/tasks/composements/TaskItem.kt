@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.sp
 import com.example.todoapp.feature_todo.domain.model.Task
 import com.example.todoapp.ui.theme.ToDoAppTheme
 
+//import com.example.todoapp.ui.theme.ToDoAppTheme
+
 @Composable
 fun TaskItem(
     task: Task,
@@ -91,12 +93,10 @@ fun TaskItem(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun GreetingPreview() {
-//    ToDoAppTheme {
-//        TaskItem(){
-//
-//        }
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    ToDoAppTheme {
+
+    }
+}

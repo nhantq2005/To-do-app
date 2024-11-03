@@ -25,8 +25,8 @@ class TaskViewModel @Inject constructor(
     private val _state = mutableStateOf(TaskState())
     val state:State<TaskState> = _state
 
-    private val _isDoneTask = mutableStateOf(AddEditTaskState())
-    val isDoneTask:State<AddEditTaskState> = _isDoneTask
+//    private val _isDoneTask = mutableStateOf(AddEditTaskState())
+//    val isDoneTask:State<AddEditTaskState> = _isDoneTask
 
     private var recentTask:Task? = null
 
@@ -62,10 +62,10 @@ class TaskViewModel @Inject constructor(
                 )
             }
 
-            is TasksEvent.CheckTask -> {
-                _isDoneTask.value = isDoneTask.value.copy(
-                    isDoneTask = !isDoneTask.value.isDoneTask
-                )
+            is TasksEvent.CompletedTask -> {
+                viewModelScope.launch {
+                    taskUseCases.updateTask(event.task)
+                }
             }
         }
     }

@@ -12,5 +12,5 @@ sealed class TasksEvent {
 
     object ToggleOrderSection:TasksEvent()
 
-    data class CheckTask(val isDone:Boolean):TasksEvent()
+    data class CompletedTask(val task: Task):TasksEvent()
 }

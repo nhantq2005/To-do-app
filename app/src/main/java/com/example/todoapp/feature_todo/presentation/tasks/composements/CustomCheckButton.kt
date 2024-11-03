@@ -14,6 +14,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.todoapp.ui.theme.ToDoAppTheme
 
+//import com.example.todoapp.ui.theme.ToDoAppTheme
+
 @Composable
 fun CustomCheckButton(
     isDone:Boolean = false,
@@ -35,10 +37,9 @@ fun CustomCheckButton(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun CheckButotngPreview() {
-//    ToDoAppTheme {
-//        CustomCheckButton()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun CheckButotngPreview() {
+    ToDoAppTheme {
+    }
+}
