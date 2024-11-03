@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -24,12 +25,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.todoapp.feature_todo.presentation.add_edit_task.composements.CustomImportantButton
 import com.example.todoapp.feature_todo.presentation.add_edit_task.composements.OutlinedHintTextField
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +66,7 @@ fun AddEditTaskScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = { 
                     Text(text = "Add")
                 },
@@ -77,12 +80,6 @@ fun AddEditTaskScreen(
                         onCheckedChange = { viewModel.onEvent(AddEditTaskEvent.ImportantCheck(importantState.isImportant)) })
                 }
             )
-            FloatingActionButton(
-                onClick = { viewModel.onEvent(AddEditTaskEvent.SaveTask) },
-                containerColor = MaterialTheme.colorScheme.primary
-            ) {
-                Icon(Icons.Default.Check, contentDescription = "Finish")
-            }
         }
     ) { PaddingValues ->
         Box(modifier = Modifier.padding(PaddingValues)){
@@ -115,6 +112,17 @@ fun AddEditTaskScreen(
                     textStyle = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.fillMaxHeight()
                 )
+            }
+            FloatingActionButton(
+                onClick = {
+                    viewModel.onEvent(AddEditTaskEvent.SaveTask)
+
+                          },
+                containerColor = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.align(Alignment.BottomEnd)
+                    .padding(25.dp)
+            ) {
+                Icon(Icons.Default.Check, contentDescription = "Finish")
             }
         }
 

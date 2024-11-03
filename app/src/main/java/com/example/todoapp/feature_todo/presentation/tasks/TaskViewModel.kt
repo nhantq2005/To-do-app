@@ -25,9 +25,6 @@ class TaskViewModel @Inject constructor(
     private val _state = mutableStateOf(TaskState())
     val state:State<TaskState> = _state
 
-//    private val _isDoneTask = mutableStateOf(AddEditTaskState())
-//    val isDoneTask:State<AddEditTaskState> = _isDoneTask
-
     private var recentTask:Task? = null
 
     private var getTasksJob: Job? = null
@@ -44,7 +41,8 @@ class TaskViewModel @Inject constructor(
                 }
             }
             is TasksEvent.Order -> {
-                if(state.value.taskOrder::class == event.taskOrder::class){     //if not have ::class -> check reference
+                if(state.value.taskOrder::class == event.taskOrder::class &&
+                    state.value.taskOrder.orderType == event.taskOrder.orderType){     //if not have ::class -> check reference
                     return
                 }
                 getTasks(event.taskOrder)

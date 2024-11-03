@@ -89,7 +89,7 @@ class AddEditTaskViewModel @Inject constructor(
                                 detail = taskDetail.value.text,
                                 isImportant = state.value.isImportant,
                                 timeStamp = System.currentTimeMillis(),
-                                isDone = true,
+                                isDone = false,
                                 id = currentTaskId
                             )
                         )

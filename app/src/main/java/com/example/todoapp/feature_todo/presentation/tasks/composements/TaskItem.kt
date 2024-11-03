@@ -1,8 +1,10 @@
 package com.example.todoapp.feature_todo.presentation.tasks.composements
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+//import androidx.compose.foundation.layout.BoxScopeInstance.align
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.platform.InspectableModifier
 import androidx.compose.ui.text.style.TextDecoration
@@ -52,51 +55,133 @@ fun TaskItem(
     onDeleteClick:()->Unit,
     isDone:Boolean,
     onDoneClick:()->Unit
-){
+) {
+
+//    Box(
+//        modifier = Modifier
+//            .clip(RoundedCornerShape(10.dp))
+//            .shadow(9.dp, shape = RoundedCornerShape(1.dp))
+//            .padding(10.dp)
+//    ) {
+//        Column(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(0.dp)
+//                .clip(
+//                    RoundedCornerShape(20.dp)
+//                ),
+//            verticalArrangement = Arrangement.Center
+//        ) {
+//            Row(
+//                modifier = Modifier.fillMaxWidth()
+//                    .clip(RoundedCornerShape(20.dp)),
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                CustomCheckButton(
+//                    isDone = isDone,
+//                    onCheckedChange = onDoneClick
+//                )
+//                Text(
+//                    text = task.title,
+//                    style = MaterialTheme.typography.bodyMedium,
+//                    color = MaterialTheme.colorScheme.onSurface,
+//                    fontSize = 18.sp,
+//                    maxLines = 1,
+//                    overflow = TextOverflow.Ellipsis
+//                )
+//            }
+//        }
+//        IconButton(
+//            onClick = onDeleteClick,
+//            modifier = Modifier.align(Alignment.CenterEnd)
+//        ) {
+//            Icon(
+//                Icons.Default.Delete,
+//                contentDescription = "Delete Task Button"
+//            )
+//        }
+//    }
+//    Column(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .height(50.dp)
+//            .shadow(3.dp, RoundedCornerShape(10.dp))
+//            .clip(
+//                RoundedCornerShape(20.dp)
+//            ),
+//        verticalArrangement = Arrangement.Center
+//    ) {
+//        Row(
+//            modifier = Modifier.fillMaxWidth()
+//                .clip(RoundedCornerShape(20.dp)),
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            CustomCheckButton(
+//                isDone = isDone,
+//                onCheckedChange = onDoneClick
+//            )
+//            Text(
+//                text = task.title,
+//                style = MaterialTheme.typography.bodyMedium,
+//                color = MaterialTheme.colorScheme.onSurface,
+//                fontSize = 18.sp,
+//                maxLines = 1,
+//                overflow = TextOverflow.Ellipsis
+//            )
+//        }
+//    }
+//    IconButton(
+//        onClick = onDeleteClick,
+////        modifier = Modifier.align(Alignment.CenterEnd)
+//    ) {
+//        Icon(
+//            Icons.Default.Delete,
+//            contentDescription = "Delete Task Button"
+//        )
+//    }
+//}
 
     Box(
         modifier = Modifier
-            .clip(RoundedCornerShape(10.dp))
-            .shadow(3.dp, shape = RoundedCornerShape(1.dp))
-            .padding(10.dp)
-    ){
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .clip(RoundedCornerShape(20.dp)),
-            verticalArrangement = Arrangement.Center) {
-            Row(modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically) {
-                CustomCheckButton(
-                    isDone = isDone,
-                    onCheckedChange = onDoneClick
-                )
-                Text(
-                    text = task.title,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 18.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-        }
-        IconButton(
-            onClick = onDeleteClick,
-            modifier = Modifier.align(Alignment.CenterEnd)
-            ) {
-            Icon(
-                Icons.Default.Delete,
-                contentDescription = "Delete Task Button"
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .height(70.dp)
+                .shadow(15.dp, RoundedCornerShape(10.dp))
+                .background(Color.White),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CustomCheckButton(
+            isDone = isDone,
+            onCheckedChange = onDoneClick
+            )
+            Text(
+                text = task.title,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 18.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textDecoration = if(task.isDone) TextDecoration.LineThrough else TextDecoration.None
+
             )
         }
+            IconButton(
+        onClick = onDeleteClick,
+        modifier = Modifier.align(Alignment.CenterEnd)
+    ) {
+        Icon(
+            Icons.Default.Delete,
+            contentDescription = "Delete Task Button"
+        )
+    }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ToDoAppTheme {
-
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    ToDoAppTheme {
+//
+//    }
+//}
