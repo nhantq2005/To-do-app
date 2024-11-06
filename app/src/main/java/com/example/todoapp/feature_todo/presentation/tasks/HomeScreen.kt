@@ -11,6 +11,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -46,6 +47,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
@@ -56,9 +58,9 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.todoapp.feature_todo.domain.model.Task
-import com.example.todoapp.feature_todo.presentation.tasks.composements.DropDownMenu
 import com.example.todoapp.feature_todo.presentation.tasks.composements.OrderSection
 import com.example.todoapp.feature_todo.presentation.tasks.composements.TaskItem
+import com.example.todoapp.ui.theme.AppTheme
 import com.example.todoapp.ui.theme.ToDoAppTheme
 
 import kotlinx.coroutines.launch
@@ -75,16 +77,14 @@ fun HomeScreen(
     val scope = rememberCoroutineScope()
 
     Scaffold(
-//        scaffoldState = scaffoldState,
         topBar = {
             CenterAlignedTopAppBar(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    MaterialTheme.colorScheme.primary
+                    AppTheme.appColor.topBarColor
                 ),
                 title = {
                     Text(text = "To do",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
+                        style = AppTheme.appTypograhy.headline
                     )
                         },
                 actions = {
@@ -102,33 +102,47 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(onClick = {
 
-            }) {
-                Icon(Icons.Default.Add, contentDescription = "Add task button")
+            },
+                containerColor = AppTheme.appColor.fabColor) {
+                Icon(Icons.Default.Add,
+                    contentDescription = "Add task button",
+                    tint = AppTheme.appColor.iconColor)
             }
         },
         bottomBar = {
             BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
+                containerColor = AppTheme.appColor.bottomBarColor,
+                contentColor = AppTheme.appColor.iconColor,
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ){
-                    IconButton(
-                        onClick = { /*TODO*/ }
-                    ) {
-                        Icon(Icons.Default.List,
-                            contentDescription = "To do Screen Button",
-                            modifier = Modifier.size(30.dp))
-                    }
-                    IconButton(
-                        onClick = { /*TODO*/ }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        IconButton(
+                            onClick = { /*TODO*/ }
                         ) {
-                        Icon(Icons.Default.BookmarkBorder,
-                            contentDescription = "Impotant Screen Button",
-                            modifier = Modifier.size(30.dp))
+                            Icon(Icons.Default.List,
+                                contentDescription = "To do Screen Button",
+                                modifier = Modifier.size(30.dp))
+                        }
+                        Text(text = "To do",
+                            style = AppTheme.appTypograhy.subTitle)
                     }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        IconButton(
+                            onClick = { /*TODO*/ },
+                            modifier = Modifier.padding(0.dp)
+                        ) {
+                            Icon(Icons.Default.BookmarkBorder,
+                                contentDescription = "Impotant Screen Button",
+                                modifier = Modifier.size(30.dp))
+                        }
+                        Text(text = "Important",
+                            style = AppTheme.appTypograhy.subTitle,
+                        )
+                    }
+
                 }
             }
         }
@@ -142,8 +156,6 @@ fun HomeScreen(
                 enter = fadeIn() + slideInVertically(),
                 exit = fadeOut() + slideOutVertically(),
                 modifier = Modifier.zIndex(1f)
-//                    .background(Color.White)
-//                    .border(1.dp, Color.Blue, RoundedCornerShape(15.dp))
             ) {
                 OrderSection(
                     onOrderChange = {viewModel.onEvent(TasksEvent.Order(it))},
@@ -188,6 +200,7 @@ fun HomeScreen(
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

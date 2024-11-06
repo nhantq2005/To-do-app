@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -21,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -32,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.todoapp.feature_todo.presentation.add_edit_task.composements.CustomImportantButton
 import com.example.todoapp.feature_todo.presentation.add_edit_task.composements.OutlinedHintTextField
+import com.example.todoapp.ui.theme.AppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
@@ -67,12 +70,18 @@ fun AddEditTaskScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    AppTheme.appColor.topBarColor
+                ),
                 title = { 
-                    Text(text = "Add")
+                    Text(text = "Add",
+                        style = AppTheme.appTypograhy.headline)
                 },
                 navigationIcon = {
                     IconButton(onClick = { /*TODO*/ }) {        //back to HomeScreen
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back home")
+                        Icon(Icons.Default.ArrowBack,
+                            contentDescription = "Back home",
+                            tint = AppTheme.appColor.iconColor)
                     }
                 },
                 actions = {
@@ -94,9 +103,8 @@ fun AddEditTaskScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTaskEvent.ChangeTitleFocus(it))
                     },
-                    isHintVisible = titleState.isHintVisible,
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyLarge
+                    textStyle = AppTheme.appTypograhy.title
                 )
                 Spacer(modifier = Modifier.height(15.dp))
                 OutlinedHintTextField(
@@ -108,9 +116,8 @@ fun AddEditTaskScreen(
                     onFocusChange = {
                         viewModel.onEvent(AddEditTaskEvent.ChangeDetailFocus(it))
                     },
-                    isHintVisible = detailState.isHintVisible,
-                    textStyle = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.fillMaxHeight()
+                    textStyle = AppTheme.appTypograhy.title,
+//                    modifier = Modifier.fillMaxHeight()
                 )
             }
             FloatingActionButton(
@@ -118,11 +125,13 @@ fun AddEditTaskScreen(
                     viewModel.onEvent(AddEditTaskEvent.SaveTask)
 
                           },
-                containerColor = MaterialTheme.colorScheme.primary,
+                containerColor = AppTheme.appColor.fabColor,
                 modifier = Modifier.align(Alignment.BottomEnd)
                     .padding(25.dp)
             ) {
-                Icon(Icons.Default.Check, contentDescription = "Finish")
+                Icon(Icons.Default.Check,
+                    contentDescription = "Finish",
+                    tint = AppTheme.appColor.iconColor)
             }
         }
 
