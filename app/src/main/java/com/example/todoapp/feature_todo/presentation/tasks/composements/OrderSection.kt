@@ -25,34 +25,6 @@ fun OrderSection(
     taskOrder: TaskOrder = TaskOrder.Date(OrderType.Ascending),
     onOrderChange:(TaskOrder)->Unit
 ){
-//    Card(modifier = Modifier.fillMaxWidth()
-//        .zIndex(2f),
-//        colors = CardDefaults.cardColors(containerColor = Color.White),
-//        elevation = CardDefaults.cardElevation(
-//            defaultElevation = 6.dp
-//        )
-//    ) {
-//        Row(
-//            modifier = modifier
-//                .fillMaxWidth(),
-//            horizontalArrangement = Arrangement.SpaceEvenly
-//        ) {
-//            Text(
-//                text = "Sort by:",
-//                style = MaterialTheme.typography.headlineMedium
-//            )
-//
-//            DefaultRadioButton(
-//                text = "Date",
-//                selected = taskOrder is TaskOrder.Date,
-//                onSelect = { onOrderChange(TaskOrder.Date(taskOrder.orderType))})
-//
-//            DefaultRadioButton(
-//                text = "Title",
-//                selected = taskOrder is TaskOrder.Title,
-//                onSelect = { onOrderChange(TaskOrder.Title(taskOrder.orderType))})
-//        }
-//    }
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -67,7 +39,6 @@ fun OrderSection(
                 text = "Sort by:",
                 style = AppTheme.appTypograhy.headline.copy(fontSize = 20.sp)
             )
-
             CustomRadioButton(
                 text = "Date",
                 selected = taskOrder is TaskOrder.Date,

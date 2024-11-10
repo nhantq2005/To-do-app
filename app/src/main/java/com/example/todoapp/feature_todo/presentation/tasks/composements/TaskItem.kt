@@ -44,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.todoapp.feature_todo.domain.model.Task
+import com.example.todoapp.ui.theme.AppTheme
 import com.example.todoapp.ui.theme.ToDoAppTheme
 
 //import com.example.todoapp.ui.theme.ToDoAppTheme
@@ -51,130 +52,46 @@ import com.example.todoapp.ui.theme.ToDoAppTheme
 @Composable
 fun TaskItem(
     task: Task,
-    modifier:Modifier=Modifier,
-    onDeleteClick:()->Unit,
-    isDone:Boolean,
-    onDoneClick:()->Unit
+    modifier: Modifier = Modifier,
+    onDeleteClick: () -> Unit,
+    isDone: Boolean,
+    onDoneClick: () -> Unit
 ) {
 
-//    Box(
-//        modifier = Modifier
-//            .clip(RoundedCornerShape(10.dp))
-//            .shadow(9.dp, shape = RoundedCornerShape(1.dp))
-//            .padding(10.dp)
-//    ) {
-//        Column(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(0.dp)
-//                .clip(
-//                    RoundedCornerShape(20.dp)
-//                ),
-//            verticalArrangement = Arrangement.Center
-//        ) {
-//            Row(
-//                modifier = Modifier.fillMaxWidth()
-//                    .clip(RoundedCornerShape(20.dp)),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                CustomCheckButton(
-//                    isDone = isDone,
-//                    onCheckedChange = onDoneClick
-//                )
-//                Text(
-//                    text = task.title,
-//                    style = MaterialTheme.typography.bodyMedium,
-//                    color = MaterialTheme.colorScheme.onSurface,
-//                    fontSize = 18.sp,
-//                    maxLines = 1,
-//                    overflow = TextOverflow.Ellipsis
-//                )
-//            }
-//        }
-//        IconButton(
-//            onClick = onDeleteClick,
-//            modifier = Modifier.align(Alignment.CenterEnd)
-//        ) {
-//            Icon(
-//                Icons.Default.Delete,
-//                contentDescription = "Delete Task Button"
-//            )
-//        }
-//    }
-//    Column(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .height(50.dp)
-//            .shadow(3.dp, RoundedCornerShape(10.dp))
-//            .clip(
-//                RoundedCornerShape(20.dp)
-//            ),
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Row(
-//            modifier = Modifier.fillMaxWidth()
-//                .clip(RoundedCornerShape(20.dp)),
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            CustomCheckButton(
-//                isDone = isDone,
-//                onCheckedChange = onDoneClick
-//            )
-//            Text(
-//                text = task.title,
-//                style = MaterialTheme.typography.bodyMedium,
-//                color = MaterialTheme.colorScheme.onSurface,
-//                fontSize = 18.sp,
-//                maxLines = 1,
-//                overflow = TextOverflow.Ellipsis
-//            )
-//        }
-//    }
-//    IconButton(
-//        onClick = onDeleteClick,
-////        modifier = Modifier.align(Alignment.CenterEnd)
-//    ) {
-//        Icon(
-//            Icons.Default.Delete,
-//            contentDescription = "Delete Task Button"
-//        )
-//    }
-//}
-
     Box(
-        modifier = Modifier
+        modifier = modifier
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .height(70.dp)
                 .shadow(15.dp, RoundedCornerShape(10.dp))
                 .background(Color.White),
             verticalAlignment = Alignment.CenterVertically
         ) {
             CustomCheckButton(
-            isDone = isDone,
-            onCheckedChange = onDoneClick
+                isDone = isDone,
+                onCheckedChange = onDoneClick
             )
             Text(
                 text = task.title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 18.sp,
+                style = AppTheme.appTypograhy.title,
+                color = AppTheme.appColor.textColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                textDecoration = if(task.isDone) TextDecoration.LineThrough else TextDecoration.None
+                textDecoration = if (task.isDone) TextDecoration.LineThrough else TextDecoration.None
 
             )
         }
-            IconButton(
-        onClick = onDeleteClick,
-        modifier = Modifier.align(Alignment.CenterEnd)
-    ) {
-        Icon(
-            Icons.Default.Delete,
-            contentDescription = "Delete Task Button"
-        )
-    }
+        IconButton(
+            onClick = onDeleteClick,
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
+            Icon(
+                Icons.Default.Delete,
+                contentDescription = "Delete Task Button"
+            )
+        }
     }
 }
 

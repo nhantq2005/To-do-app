@@ -38,7 +38,6 @@ fun CustomRadioButton(
                  selectedColor = AppTheme.appColor.radioButtonColor
              )
          )
-         Spacer(modifier = Modifier.width(10.dp))
          Text(
              text = text,
              style = AppTheme.appTypograhy.title

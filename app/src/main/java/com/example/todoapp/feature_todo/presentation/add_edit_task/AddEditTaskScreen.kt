@@ -1,5 +1,6 @@
 package com.example.todoapp.feature_todo.presentation.add_edit_task
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,22 +32,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.todoapp.feature_todo.presentation.Screen
 import com.example.todoapp.feature_todo.presentation.add_edit_task.composements.CustomImportantButton
 import com.example.todoapp.feature_todo.presentation.add_edit_task.composements.OutlinedHintTextField
 import com.example.todoapp.ui.theme.AppTheme
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditTaskScreen(
-//    navController: NavController,
+    navController: NavController,
     viewModel: AddEditTaskViewModel = hiltViewModel()
 ){
     val titleState = viewModel.taskTitle.value
     val detailState = viewModel.taskDetail.value
-
     val importantState = viewModel.state.value
 
     val scope = rememberCoroutineScope()
@@ -61,12 +65,11 @@ fun AddEditTaskScreen(
                     )
                 }
                 AddEditTaskViewModel.UiEvent.SaveTask -> {
-//                    navController.navigateUp()
+                    navController.navigateUp()
                 }
             }
         }
     }
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -78,7 +81,9 @@ fun AddEditTaskScreen(
                         style = AppTheme.appTypograhy.headline)
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {        //back to HomeScreen
+                    IconButton(onClick = {
+                        navController.navigate(Screen.HomeScreen.route)
+                    }) {        //back to HomeScreen
                         Icon(Icons.Default.ArrowBack,
                             contentDescription = "Back home",
                             tint = AppTheme.appColor.iconColor)
@@ -86,12 +91,16 @@ fun AddEditTaskScreen(
                 },
                 actions = {
                     CustomImportantButton(isCheck = importantState.isImportant,
-                        onCheckedChange = { viewModel.onEvent(AddEditTaskEvent.ImportantCheck(importantState.isImportant)) })
+                        onCheckedChange = {
+                            viewModel.onEvent(AddEditTaskEvent.ImportantCheck(importantState.isImportant))
+                        }
+                    )
                 }
             )
         }
     ) { PaddingValues ->
-        Box(modifier = Modifier.padding(PaddingValues)){
+        Box(modifier = Modifier.padding(PaddingValues)
+            .fillMaxSize()){
             Column {
                 Spacer(modifier = Modifier.height(10.dp))
                 OutlinedHintTextField(
@@ -117,13 +126,12 @@ fun AddEditTaskScreen(
                         viewModel.onEvent(AddEditTaskEvent.ChangeDetailFocus(it))
                     },
                     textStyle = AppTheme.appTypograhy.title,
-//                    modifier = Modifier.fillMaxHeight()
+                    modifier = Modifier.fillMaxHeight(0.7f)
                 )
             }
             FloatingActionButton(
                 onClick = {
                     viewModel.onEvent(AddEditTaskEvent.SaveTask)
-
                           },
                 containerColor = AppTheme.appColor.fabColor,
                 modifier = Modifier.align(Alignment.BottomEnd)

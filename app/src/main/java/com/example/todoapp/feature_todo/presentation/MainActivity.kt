@@ -3,19 +3,15 @@ package com.example.todoapp.feature_todo.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.todoapp.feature_todo.presentation.add_edit_task.AddEditTaskScreen
+import com.example.todoapp.feature_todo.presentation.tasks.ImportantTaskScreen
 import com.example.todoapp.feature_todo.presentation.tasks.HomeScreen
 import com.example.todoapp.ui.theme.AppTheme
-import com.example.todoapp.ui.theme.ToDoAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +20,33 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                AddEditTaskScreen()
+                val navController = rememberNavController()
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.HomeScreen.route
+                    ){
+                    composable(Screen.HomeScreen.route){
+                        HomeScreen(navController = navController)
+                    }
+
+                    composable(Screen.ImportantTaskScreen.route){
+                        ImportantTaskScreen(navController = navController)
+                    }
+
+                    composable(Screen.AddEditTaskScreen.route +
+                    "?taskId={taskId}",
+                        arguments = listOf(
+                            navArgument(
+                                name = "taskId"
+                            ){
+                                type = NavType.IntType
+                                defaultValue = -1
+                            }
+                        )
+                    ){
+                            AddEditTaskScreen(navController = navController)
+                    }
+                }
             }
         }
     }

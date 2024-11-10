@@ -43,11 +43,14 @@ fun AppTheme(
         radioButtonColor = Color(0xFF376A3E),
         bottomBarColor = Color(0xFFEBEFE7),
         textColor = Color(0xFF000000),
-        iconColor = Color(0xFF424940)
+        iconColor = Color(0xFF424940),
+        selectedItem = Color(0xFFD1E5CE)
     )
 
-    CompositionLocalProvider(LocalAppTypography provides typograhy,
-        LocalAppColor provides color) {
+    CompositionLocalProvider(
+        LocalAppTypography provides typograhy,
+        LocalAppColor provides color
+    ) {
         content.invoke()
     }
 }
