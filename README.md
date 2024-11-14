@@ -1,9 +1,6 @@
 # To-do-app - Android-App
 ## UI
-![Splash Screen](./SplashScreen.png)
-![Home Screen](./HomeScreen.png)
-![Important Screen](./ImportantScreen.png)
-![Add and Edit Screen](./AddEditScreen.png)
+<img src="./SplashScreen.png" width="108" height = "240" /><img src="./HomeScreen.png" width="108" height = "240" /><img src="./ImportantScreen.png" width="108" height = "240" /><img src="./AddEditScreen.png" width="108" height = "240" />
 ## Features
 * Save the tasks that need to be completed.
 * Check whether the work has been completed or not.
