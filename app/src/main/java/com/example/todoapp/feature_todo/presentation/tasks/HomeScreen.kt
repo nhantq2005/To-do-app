@@ -72,143 +72,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: TaskViewModel = hiltViewModel()
+    viewModel: TaskViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-//    Scaffold(
-//        topBar = {
-//            CenterAlignedTopAppBar(
-//                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-//                    AppTheme.appColor.topBarColor
-//                ),
-//                title = {
-//                    Text(text = "To do",
-//                        style = AppTheme.appTypograhy.headline
-//                    )
-//                        },
-//                actions = {
-//                    IconButton(onClick = {
-//                        viewModel.onEvent(TasksEvent.ToggleOrderSection)
-//                    }) {
-//                        Icon(
-//                            Icons.Default.Sort,
-//                            contentDescription = "Sort Button"
-//                        )
-//                    }
-//                }
-//            )
-//        },
-//        floatingActionButton = {
-//            FloatingActionButton(onClick = {
-//                navController.navigate(Screen.AddEditTaskScreen.route)
-//            },
-//                containerColor = AppTheme.appColor.fabColor) {
-//                Icon(Icons.Default.Add,
-//                    contentDescription = "Add task button",
-//                    tint = AppTheme.appColor.iconColor)
-//            }
-//        },
-//        bottomBar = {
-//            BottomAppBar(
-//                containerColor = AppTheme.appColor.bottomBarColor,
-//                contentColor = AppTheme.appColor.iconColor,
-//            ) {
-//                Row(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    horizontalArrangement = Arrangement.SpaceAround
-//                ){
-//                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                        IconButton(
-//                            onClick = { navController.navigate(Screen.HomeScreen.route) }
-//                        ) {
-//                            Icon(Icons.Default.List,
-//                                contentDescription = "To do Screen Button",
-//                                modifier = Modifier.size(30.dp))
-//                        }
-//                        Text(text = "To do",
-//                            style = AppTheme.appTypograhy.subTitle)
-//                    }
-//                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-//                        IconButton(
-//                            onClick = { navController.navigate(Screen.ImportantTaskScreen.route) },
-//                            modifier = Modifier.padding(0.dp)
-//                        ) {
-//                            Icon(Icons.Default.BookmarkBorder,
-//                                contentDescription = "Impotant Screen Button",
-//                                modifier = Modifier.size(30.dp))
-//                        }
-//                        Text(text = "Important",
-//                            style = AppTheme.appTypograhy.subTitle,
-//                        )
-//                    }
-//
-//                }
-//            }
-//        }
-//    ) { PaddingValues ->
-//        Box(modifier = Modifier
-//            .padding(PaddingValues)
-//            .padding(10.dp)
-//        ) {
-//            AnimatedVisibility(
-//                visible = state.isOrderSectionVisible,
-//                enter = fadeIn() + slideInVertically(),
-//                exit = fadeOut() + slideOutVertically(),
-//                modifier = Modifier.zIndex(1f)
-//            ) {
-//                OrderSection(
-//                    onOrderChange = {
-//                        viewModel.onEvent(TasksEvent.Order(it))
-//                        viewModel.onEvent(TasksEvent.ToggleOrderSection)
-//                                    },
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(vertical = 10.dp),
-//                    taskOrder = state.taskOrder
-//                )
-//            }
-//            Spacer(modifier = Modifier.height(25.dp))
-//            LazyColumn(modifier = Modifier.fillMaxSize()){
-//                items(state.tasks){atask ->
-//                    TaskItem(
-//                        task = atask,
-//                        modifier = Modifier
-//                            .fillMaxWidth()
-//                            .clickable {
-//                                navController.navigate(Screen.AddEditTaskScreen.route
-//                                +"?taskId=${atask.id}")
-//                            },
-//                        onDeleteClick = {
-//                            //Delete Task
-//                            viewModel.onEvent(TasksEvent.DeleteTask(atask))
-//                            scope.launch {
-//                                //Show snack bar to restore task
-//                                val result = snackbarHostState.showSnackbar(
-//                                    message = "Task deleted",
-//                                    actionLabel = "Undo"
-//                                )
-//                                if(result == SnackbarResult.ActionPerformed){
-//                                    viewModel.onEvent(TasksEvent.RestoreTask)
-//                                }
-//                            }
-//                        },
-//                        isDone = atask.isDone,
-//                        onDoneClick = {
-//                            viewModel.onEvent(TasksEvent.CompletedTask(atask))
-//                        }
-//                    )
-//                    Spacer(modifier = Modifier.height(15.dp))
-//                }
-//            }
-//        }
-//    }
-//}
-
     ScaffoldBar(
+        title = Screen.HomeScreen.title,
         navController = navController,
+        snackbarHostState=snackbarHostState,
         viewModel = viewModel
     ) {
         AnimatedVisibility(
@@ -230,7 +103,7 @@ fun HomeScreen(
         }
         Spacer(modifier = Modifier.height(25.dp))
         LazyColumn(modifier = Modifier.fillMaxSize()){
-            items(state.tasks){atask ->
+            items(state.tasks.sortedBy { task -> task.isDone }){atask ->
                 TaskItem(
                     task = atask,
                     modifier = Modifier
@@ -247,7 +120,7 @@ fun HomeScreen(
                             val result = snackbarHostState.showSnackbar(
                                 message = "Task deleted",
                                 actionLabel = "Undo",
-                                duration = SnackbarDuration.Long
+                                duration = SnackbarDuration.Short
                             )
                             if(result == SnackbarResult.ActionPerformed){
                                 viewModel.onEvent(TasksEvent.RestoreTask)

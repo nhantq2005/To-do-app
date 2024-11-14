@@ -61,7 +61,9 @@ fun ImportantTaskScreen(
     val scope = rememberCoroutineScope()
 
     ScaffoldBar(
+        title = Screen.ImportantTaskScreen.title,
         navController = navController,
+        snackbarHostState = snackbarHostState,
         viewModel = viewModel
     ) {
         AnimatedVisibility(
@@ -83,7 +85,9 @@ fun ImportantTaskScreen(
         }
         Spacer(modifier = Modifier.height(25.dp))
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(state.tasks.filter { task -> task.isImportant }) { atask ->
+            items(state.tasks
+                .filter { task -> task.isImportant }
+                .sortedBy { task -> task.isDone }) { atask ->
                 TaskItem(
                     task = atask,
                     modifier = Modifier
@@ -99,7 +103,7 @@ fun ImportantTaskScreen(
                             //Show snack bar to restore task
                             val result = snackbarHostState.showSnackbar(
                                 message = "Task deleted",
-                                actionLabel = "Undo"
+                                actionLabel = "Undo",
                             )
                             if (result == SnackbarResult.ActionPerformed) {
                                 viewModel.onEvent(TasksEvent.RestoreTask)

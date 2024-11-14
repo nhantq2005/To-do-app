@@ -77,7 +77,7 @@ fun AddEditTaskScreen(
                     AppTheme.appColor.topBarColor
                 ),
                 title = { 
-                    Text(text = "Add",
+                    Text(text = Screen.AddEditTaskScreen.title,
                         style = AppTheme.appTypograhy.headline)
                 },
                 navigationIcon = {
