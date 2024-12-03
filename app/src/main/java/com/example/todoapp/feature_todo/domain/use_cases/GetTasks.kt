@@ -13,21 +13,16 @@ class GetTasks(
 ) {
     operator fun invoke(
         taskOrder: TaskOrder = TaskOrder.Date(OrderType.Ascending)
-    ):Flow<List<Task>> {
+    ): Flow<List<Task>> {
         return repository.getTasks().map { tasks ->
-            when (taskOrder.orderType) {
-                is OrderType.Ascending -> {
-                    when (taskOrder) {
-                        is TaskOrder.Date -> {
-                            tasks.sortedBy { it.timeStamp }
-                        }
-
-                        is TaskOrder.Title -> {
-                            tasks.sortedBy { it.title.lowercase() }
-                        }
-                    }
+            when (taskOrder) {
+                is TaskOrder.Date -> {
+                    tasks.sortedBy { -it.timeStamp }
                 }
 
+                is TaskOrder.Title -> {
+                    tasks.sortedBy { it.title.lowercase() }
+                }
             }
         }
     }
